@@ -44,7 +44,7 @@ git remote -v
 
 Caso queira mudar o repositorio de algum dos remotes é só fazer
 ```
-git ${nome dado ao remote} set-url origin ${url de clone}
+git remote set-url ${nome dado ao remote} ${url de clone}
 ```
 No nosso caso os valores aceitos para ${nome dado ao remote} são `origin` e `upstream` 
 
