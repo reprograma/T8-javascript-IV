@@ -162,27 +162,21 @@ function Pessoa(nome, idade, corFavorita){
     this.corFavorita = corFavorita
 }
 
-let mae = new Pessoa("Ana", 35, "vermelho")
-let tio = new Pessoa("Cleber", 49, "rosa")
+// let mae = new Pessoa("Ana", 35, "vermelho")
+// let tio = new Pessoa("Cleber", 49, "rosa")
 
-Pessoa.prototype.apresentacao = function() {
-    return `O nome da pessoa é: ${this.nome}`
-}
-console.dir(Pessoa)
+// Pessoa.prototype.apresentacao = function() {
+//     return `O nome da pessoa é: ${this.nome}`
+// }
+// console.dir(Pessoa)
 
-console.log(mae.apresentacao())
-console.log(tio.apresentacao())
-mae.apresentacao = function(){
-    return `apresentação especial da mãe: ${this.nome} e tenho ${this.idade}`
-}
-console.log(mae.apresentacao())
+// console.log(mae.apresentacao())
+// console.log(tio.apresentacao())
+// mae.apresentacao = function(){
+//     return `apresentação especial da mãe: ${this.nome} e tenho ${this.idade}`
+// }
+// console.log(mae.apresentacao())
 
-
-function Pessoa(nome, idade, corFavorita){
-    this.nome = nome
-    this.idade = idade
-    this.corFavorita = corFavorita
-}
 //nome, sobrenome, materia
 function Professor(nome, sobrenome, materia){
     this.nome = nome
@@ -204,5 +198,32 @@ js4.dizMateria = function(){
 }
 console.log(js4.dizMateria())
 
-console.dir(Professor.prototype)
-console.dir(js4.__proto__)
+const avo = { attr1: 'A'}
+const mae = {__proto__:avo, attr2: 'B', attr3:'E'}
+const filha = {__proto__:mae, attr3: 'C'}
+console.log(filha.attr1, filha.attr2, filha.attr3)
+
+class Avo {
+    constructor(sobrenome = "Rodrigues"){
+        this.sobrenome = sobrenome
+    }
+}
+
+class Mae extends Avo {
+    constructor(sobrenome, profissao="Cineasta"){
+        super(sobrenome)
+        this.profissao = profissao
+    }
+}
+
+class Filha extends Mae {
+    constructor(){
+        super('Silva')
+    }
+}
+
+const novaFilha = new Filha
+novaFilha.profissao = "Atriz"
+console.log(novaFilha)
+const novaMae = new Mae
+console.log(novaMae)
