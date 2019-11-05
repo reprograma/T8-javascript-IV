@@ -204,3 +204,5 @@ js4.dizMateria = function(){
 }
 console.log(js4.dizMateria())
 
+console.dir(Professor.prototype)
+console.dir(js4.__proto__)

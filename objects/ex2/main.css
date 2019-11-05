@@ -1,0 +1,14 @@
+.img-rounded {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+.avatar {
+  width: 20%;
+  display: inline-block;
+  text-align: center;
+}
+
+.green {
+  background-color: green
+}
