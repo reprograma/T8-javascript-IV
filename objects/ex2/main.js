@@ -7,7 +7,7 @@ const users = [{
   imagem: "https://images-na.ssl-images-amazon.com/images/I/81-yKbVND-L._SY355_.png"
 },
 {
-  nome: "Antonio Bandeiras",
+  nome: "Antonio Banderas",
   imagem: "https://answersafrica.com/wp-content/uploads/2019/06/antonio-banderas-640x441.jpg"
 }]
 
@@ -36,9 +36,13 @@ class Avatar{
   }
 }
 
-users.map((user) => {
+users.map((user, index) => {
   new Avatar(user).renderComCreate()
 })
+document.getElementById('cards-section').insertAdjacentHTML('beforeend', '<br/><br/>')
 
+users.forEach((user) => {
+  new Avatar(user).render()
+})
 
 
