@@ -25,3 +25,12 @@ let resultados = [
         imagem: "http://img.recipepuppy.com/5.jpg"
     }
 ];
+
+
+const renderNavbar = new Navbar
+
+renderNavbar.render()
+
+resultados.map(receita => {
+    new Card(receita).render()
+})
