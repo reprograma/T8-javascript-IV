@@ -31,9 +31,10 @@ const renderNavbar = new Navbar
 
 renderNavbar.render()
 
+document.querySelector('.cards').innerHTML = 
 resultados.map(receita => {
-    new Card(receita).render()
-})
+    return new Card(receita).render()
+}).join("")
 
 document.querySelector('.button__search').addEventListener('click', function(){
     let inputValue = document.querySelector('.input__search').value.toUpperCase()
@@ -42,8 +43,9 @@ document.querySelector('.button__search').addEventListener('click', function(){
         return receita.titulo.toUpperCase().includes(inputValue) || receita.ingredientes.toUpperCase().includes(inputValue)
     })
 
-    document.querySelector('.cards').innerHTML = ""
+    document.querySelector('.cards').innerHTML = 
     achados.map(encontrado => {
-        new Card(encontrado).render()
-    })
+        return new Card(encontrado).render()
+    }).join("")
 })
+
