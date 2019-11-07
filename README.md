@@ -10,6 +10,7 @@ Turma 8 | Front-end | 2019 | Semana 13 | Javascript IV
 Nessa aula vimos:
 * [Git-flow](#git-flow)
 * [Array](#array)
+* [Try e Catch](#try-e-catch)
 * [Exercícios](#exercicios)
 * [Conteúdo para estudo](#conteúdo-para-estudo)
 
@@ -105,6 +106,29 @@ E ao final fizemos o processo de Pull Request pelo github
 * [**reduce**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf) aplica uma função simultaneamente para dois valores do Array (da esquerda para a direita) de forma a reduzi-los a um valor único
 * [**some**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some) Checa se pelo menos um dos elementos do array obedece a condição passada pela função
 * [**every**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every) Checa se todos os elementos do array obedecem a condição passada pela função 
+
+#### Try e Catch
+- [Documentação mozilla sobre try e catch](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/try...catch)
+```
+try{
+    //Aqui vai a tentativa 
+}catch(e){
+    //Aqui vai o tratamento de quando dá erro.
+}
+```
+Podemos estilizar o erro e lançar exceções utilizando `throw`
+```
+try{
+    if(deuCerto){
+        console.log("EBA")
+    }else{
+        throw "Deu ruim :( a requisição falhou"
+    }
+}catch(e){  
+    console.log(`Tivemos um erro: ${e}`)
+}
+```
+Veja um exemplo de como aplicar no [Exercicio2](array/ex2)
 
 #### Exercicios
 - [Exercicio1](array/ex1)
@@ -203,6 +227,8 @@ class Crianca{
 - [Exercicio1](objects/ex1)
 - [Exercicio2](objects/ex2)
 - [Exercicio3](objects/ex3)
+- [Exercicio3-componente-geral](objects/ex3-componente-geral)
+  > Nesse último exercício vimos como utilizar o componente de forma geral e apenas renderizá-lo chamando pela main, porque aí conseguimos decidir em qual div/tag queremos colocar.
 
 ##### Material extra
 [slides adicionais da T7-Javascript-IV](https://docs.google.com/presentation/d/1Gkfxzmm3NjleJwvB4yC9k7C_TPa9HloIy0pRO4tLDD0/edit?usp=sharing)

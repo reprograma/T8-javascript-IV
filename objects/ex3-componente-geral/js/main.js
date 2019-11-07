@@ -30,11 +30,20 @@ let resultados = [
 const renderNavbar = new Navbar
 
 renderNavbar.render()
+const sectionCards = document.querySelector('.cards')
+const carregaCards = (arrayRecebido) => {
+    sectionCards.innerHTML = arrayRecebido.map(objeto => {
+        return new Card(objeto).render()
+    }).join("")
+}
 
-document.querySelector('.cards').innerHTML = 
-resultados.map(receita => {
-    return new Card(receita).render()
-}).join("")
+carregaCards(resultados)
+
+const limpar = (value) => {
+    if(!value){
+        carregaCards(resultados)    
+    }
+}
 
 document.querySelector('.button__search').addEventListener('click', function(){
     let inputValue = document.querySelector('.input__search').value.toUpperCase()
@@ -43,9 +52,6 @@ document.querySelector('.button__search').addEventListener('click', function(){
         return receita.titulo.toUpperCase().includes(inputValue) || receita.ingredientes.toUpperCase().includes(inputValue)
     })
 
-    document.querySelector('.cards').innerHTML = 
-    achados.map(encontrado => {
-        return new Card(encontrado).render()
-    }).join("")
+    carregaCards(achados)
 })
 
