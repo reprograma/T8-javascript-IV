@@ -5,7 +5,7 @@ Turma 8 | Front-end | 2019 | Semana 13 | Javascript IV
 
 ---
 
-### [Aula 1](#aula-1)
+### [Aula 1](#aula-1-conteúdo)
 #### Resumo
 Nessa aula vimos:
 * [Git-flow](#git-flow)
@@ -14,13 +14,21 @@ Nessa aula vimos:
 * [Exercícios](#exercicios)
 * [Conteúdo para estudo](#conteúdo-para-estudo)
 
-### [Aula 2](#aula-2)
+### [Aula 2](#aula-2-conteúdo)
 #### Resumo
 Nessa aula vimos:
 * [Object](#object)
 * [Exercícios 2](#exercicios-2)
 
-## Aula 1
+### [Aula 3](#aula-3-conteúdo)
+Nessa aula vimos:
+* [Callback e promises](callback-e-promises)
+* [Async await](async-await)
+* [API](api)
+* [Fetch](fetch)
+* [Exercícios 3](#exercicios-3)
+
+## Aula 1 Conteúdo
 #### Git flow
 É um dos modelos existentes para organizar branches.
 Tendo como principio: 
@@ -140,7 +148,7 @@ Veja um exemplo de como aplicar no [Exercicio2](array/ex2)
 - [Git flow - gitlab](https://docs.gitlab.com/ee/workflow/gitlab_flow.html)
 - [Git flow - bitbucket](https://br.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
 
-## Aula 2
+## Aula 2 Conteúdo
 #### Object
 Nessa aula tivemos:
  - [Revisão](#revisão)
@@ -223,7 +231,7 @@ class Crianca{
 ```
 [Função construtora vs classes](https://pt.stackoverflow.com/questions/360919/classes-vs-fun%C3%A7%C3%B5es-construtoras-fun%C3%A7%C3%B5es-f%C3%A1brica)
 
-##### Exercícios
+##### Exercicios 2
 - [Exercicio1](objects/ex1)
 - [Exercicio2](objects/ex2)
 - [Exercicio3](objects/ex3)
@@ -232,3 +240,208 @@ class Crianca{
 
 ##### Material extra
 [slides adicionais da T7-Javascript-IV](https://docs.google.com/presentation/d/1Gkfxzmm3NjleJwvB4yC9k7C_TPa9HloIy0pRO4tLDD0/edit?usp=sharing)
+
+## Aula 3 Conteúdo
+#### Callback e promises
+Materiais utilizados nesse README.md:
+- [slides adicionais da T7-Javascript-IV](https://docs.google.com/presentation/d/1Ni3EtMrCxVRzfrVG4jvau0J7lODHkY3LAIcXyMxKhfo/edit#slide=id.g57adacd656_0_114)
+- [JavaScript assíncrono: callbacks, promises e async functions](https://medium.com/@alcidesqueiroz/javascript-ass%C3%ADncrono-callbacks-promises-e-async-functions-9191b8272298)
+
+As frases em `notação assim` são retiradas dos materiais acima, recomendo muito que leiam os materiais indicados.
+
+- Para entendermos o conceito precisamos saber sobre Assíncrono e Síncrono:
+    - Síncrono) Eu vou a uma pizzaria, peço uma pizza para viagem no balcão e fico plantado lá, só esperando me entregarem o pedido para que eu possa ir embora. -> *parou completamente até que o pizzaiolo completasse seu trabalho*
+    - Assíncrono) Eu vou a uma pizzaria, peço uma pizza para viagem no balcão e, enquanto ela não fica pronta, dou uma passada na livraria ao lado para folhear alguns livros -> *aproveitou o tempo com outras coisas*
+##### Callback
+- [Documentação Mozilla](https://developer.mozilla.org/pt-BR/docs/Glossario/Callback_function)
+Quando queremos fazer alguma ação após o que solicitamos foi terminado podemos utilizar callbacks, um exemplo de utilização comum que vimos em callback é:
+```
+button.addEventListener("load", function(){
+    console.log("Eu sou uma função de callback, prazer!");
+});
+```
+Chamamos a função que mostrará `Eu sou uma função callback`
+
+Callbacks são uteis em vários cenários, porém quando trabalhamos com fluxos muito encadeados, ela acaba ficando muito verbosa e confusa.
+
+Por exemplo: 
+```Eu vou a uma pizzaria, peço uma pizza para viagem no balcão e, enquanto ela é preparada, dou uma passada na livraria ao lado. Assim que meu pedido estiver pronto, quero que a balconista me ligue para eu poder retirá-la. Vou levar a pizza para a casa de um amigo, onde o restante da nossa “tchurma” já está esperando para comer. Depois de lá, iremos correndo para um show, pois não queremos ficar muito longe do palco. Na casa do meu amigo, resolvo não comer da pizza, pois já jantei. Fico mexendo no Youtube enquanto eles lancham. Espero eles terminarem, para finalmente irmos para o show. Chegando lá, preciso ligar para outro amigo que também irá, para combinarmos o local onde nos encontraremos.```
+
+O fluxo disso em código ficaria assim:
+```
+orderPizza(() => {
+  console.log(`Minha pizza está pronta.`); 
+
+  waitUntilTheyFinishEating(() => {
+    console.log('Acabaram de comer. Vamos para o show.');
+    
+    goToTheShow(() => {
+      console.log('Chegamos');
+      
+      makeCallToMyFriend(() => {
+        console.log('Finalmente acabou. Que comece o show!');
+      });
+    });
+  });
+}); 
+```
+Para que a gente não tivesse um código tão aninhado podemos utilizar `promises`
+##### Promises
+- [Documentação Mozilla](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+As "promessas" representam fluxos assíncronos de forma sequencial além de favorecer o tratamento de excessões
+
+O exemplo de cima ficaria mais ou menos assim:
+```
+orderPizza()
+.then((pizza) => {
+  console.log(`Minha pizza de ${pizza.flavor} está pronta.`);
+
+  return waitUntilTheyFinishEating();
+})
+.then(() => {
+  console.log('Acabaram de comer. Vamos para o show.');
+
+  return goToTheShow();
+})
+.then(() => {
+  console.log('Chegamos');
+
+  return makeCallToMyFriend();
+})
+.then(() => {
+  console.log('Finalmente acabou. Que comece o show!');
+}).catch(e => console.log('Algo deu ruim :('));
+```
+
+Ao final de cada `.then()`
+- `Um valor qualquer, como um objeto, array, string, etc: nesse caso, o próximo then da sequência é executado imediatamente, recebendo o valor passado como parâmetro.`
+- `Uma outra promessa: foi isso que fizemos no nosso exemplo. Apesar de ainda não termos mostrado como as funções acima criam uma promessa, é óbvio presumirmos que todas essas operações são assíncronas ( orderPizza, waitUntilTheyFinishEating, goToTheShow e makeCallToMyFriend). Para que o próximo then na sequência espere até que uma dessas operações seja concluída, precisamos retornar uma promessa. Uma vez que a promessa for satisfeita, o fluxo segue.`
+
+Utilizamos o `.catch()` para tratar exceções 
+
+Como criar promises:
+```
+const myFirstPromise = new Promise((resolve, reject) => {
+  // do something asynchronous which eventually calls either:
+  resolve(someValue); // fulfilled
+  // or
+  reject("failure reason"); // rejected
+});
+
+OU 
+
+pizzaFlow()
+.then(() => console.log('O show acabou!'));
+.catch(erro => console.log('Ops!' + erro));
+```
+Sobre o resolve: `A função resolve deve ser chamada para sinalizar que a promessa foi cumprida, ou “resolvida”. Caso a operação assíncrona que estava sendo executada possua algum retorno (por exemplo: uma lista de usuários), você o passa como argumento para a função resolve. Quando a promessa é resolvida, o primeiro then da cadeia é chamado.`
+
+Sobre reject: `Em caso de alguma falha, como por exemplo a indisponibilidade de um endpoint, a função reject deve ser chamada. Ao executá-la, você estará sinalizando que a promessa falhou e você vai dar aquele “calote gostoso” em quem dependia do seu retorno.`
+
+#### Async Await
+- [Documentação Mozilla](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/funcoes_assincronas)
+`As async functions fazem código assíncrono parecer síncrono.`
+O exemplo que utilizamos antes ficaria assim: 
+```
+async function pizzaFlow() {
+  let pizza = await orderPizza();
+  console.log(`Minha pizza de ${pizza.flavor} está pronta.`);
+
+  await waitUntilTheyFinishEating();
+  console.log('Acabaram de comer. Vamos para o show.');
+
+  await goToTheShow();
+  console.log('Chegamos');
+
+  await makeCallToMyFriend();
+  console.log('Finalmente acabou. Que comece o show!');
+}
+```
+` O que a função orderPizza e as outras três invocadas com await retornam? Promises, baby. Async functions são altamente integráveis com promessas. Tanto, que até retornam promessas:`
+```
+pizzaFlow().then(() => console.log('O show acabou!'));
+//=> Minha pizza de bacon está pronta.
+//=> Acabaram de comer. Vamos para o show.
+//=> Chegamos
+//=> Finalmente acabou. Que comece o show!
+//=> O show acabou!
+```
+
+A estrutura de uma função async é
+
+```
+async function nomedaFunc(){
+    await algumaFuncDeclaradaAntes()
+    // ou também em atribuição
+    let resultadoEsperando = await retornaResultadoFunc()
+}
+```
+Ou em arrow:
+```
+let nomeDaFunc = async() => {
+    await algumaFuncDeclaradaAntes()
+    // ou também em atribuição
+    let resultadoEsperando = await retornaResultadoFunc()
+}
+```
+`Ao encontrar uma declaração await, a instrução seguinte não será executada até que a promessa em andamento seja resolvida. Isso é possível graças à magia dos generators, outro importante recurso do ES2015.`
+
+#### API
+Materiais utilizados nesse README.md:
+- [slides adicionais da T7-Javascript-IV API](https://docs.google.com/presentation/d/1dtiJKya7TJaIsGu26OAUxAjkD6PLl8-3-Gzx0yT7Tw0/edit#slide=id.p)
+- [http](https://docs.google.com/presentation/d/1PmEigFefcOp0L-MW50nZr0hWhoJmb6RJcqS_NERhhAg/edit#slide=id.g5a98031ff9_0_184)
+- [Vídeo API garçom](https://www.youtube.com/watch?v=s7wmiS2mSXY)
+- [Material](https://mundoapi.com.br/materias/para-entender-o-que-e-api-o-garcom/)
+- [Beginners Guide To Fetching Data With (AJAX, Fetch API & Async/Await)](https://dev.to/bjhaid_93/beginners-guide-to-fetching-data-with-ajax-fetch-api--asyncawait-3m1l )
+
+- Métodos de API e HTTP Status Code:
+
+Método | O que faz        | Status de retorno |
+-------|------------------|-------------------|
+GET    | Traz informações | 200               |
+POST   | Cria um novo item| 201               |
+PUT    | Atualiza um item | 200               |
+DELETE | Remove um item   | 200               |
+
+Podemos encontrar mais sobre http status code [aqui](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status)
+
+![Vamo lá](https://http.cat/100)
+
+#### Fetch
+Materiais utilizados nesse README.md:
+- [slides adicionais da T7-Javascript-IV fetch](https://docs.google.com/presentation/d/1_eaIDf3Iqop-RSuTeE8sLmooiIhKNV4L8ThHDYDCuG0/edit?usp=sharing)
+- [Documentação mozilla](https://developer.mozilla.org/pt-BR/docs/Web/API/Fetch_API/Using_Fetch)
+
+É uma performance declarativa de requisição HTTP que cria uma promise que resolve a resposta da request para mostrar o que ocorreu com sucesso ou não.
+Assim como fazemos com as promises, acessamos esse valor a partir do .then()
+
+```
+fetch('https://example.com/todos')
+  .then(response => response.json())
+  .then(data => console.log(JSON.stringify(data)))
+```
+
+Utilizando POST
+```
+fetch('https://example.com/users', {
+  headers: { "Content-Type": "application/json; charset=utf-8" },
+  method: 'POST',
+  body: JSON.stringify({
+    username: 'Elon Musk',
+    email: 'elonmusk@gmail.com',
+  })
+})
+```
+
+Utilizando DELETE
+```
+fetch('https://example.com/users/1', { 
+  method: 'DELETE' 
+})
+```
+#### Exercicios 3
+- [exPromiseJS3](promises/exPromiseJS3)
+- [ArcoIro](fetch/ex-async-await-promise-fetch)
+- [Tarot](fetch/ex01)
+- [ViaCep](fetch/ex02)
+- [Post](fetch/ex03)
