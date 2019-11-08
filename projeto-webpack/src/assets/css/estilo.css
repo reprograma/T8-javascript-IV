@@ -1,0 +1,7 @@
+body{
+    background-color:green;
+    background-image: url(../imgs/tenor.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+}
