@@ -1,0 +1,13 @@
+.content{
+    text-align: center;
+    width: 100%;
+}
+
+.titulo {
+    color: purple;
+    width:100%;
+}
+.descricao {
+    font-size: 18px;
+    text-align: center;
+}
