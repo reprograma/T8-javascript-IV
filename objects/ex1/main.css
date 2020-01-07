@@ -1,0 +1,35 @@
+button{
+  padding:20px 40px;
+  font-size: 24px; 
+  margin:20px;
+  border-radius: 5px;
+}
+
+button i{
+  margin-right:15px;
+}
+
+button.pequeno{
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+button.grande {
+  padding: 100px;
+}
+
+button.medio {
+  padding: 50px;
+}
+
+.verde {
+  background-color: green;
+}
+
+.roxo {
+  background-color: purple
+}
+
+.azul {
+  background-color: blue;
+}
